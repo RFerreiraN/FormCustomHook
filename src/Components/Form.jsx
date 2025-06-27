@@ -1,15 +1,35 @@
-import {useState} from 'react'
+import { useState } from 'react'
 
-export const Form = () => { 
+export const Form = () => {
 
-  const [form, setForm] = useState([{
-    username : '',
-    email : '',
-    password : ''
-  }])
+  const [form, setForm] = useState({
+    username: '',
+    email: '',
+    password: ''
+  })
+
+  const { username, email, password } = form;
+
+  const handleForm = (event) => {
+    const { name, value } = event.target
+    setForm({
+      ...form,
+      [name]: value
+    })
+  }
+
+  const onsubmit = (event) => {
+    event.preventDefault()
+    console.log(form)
+    setForm({
+      username: '',
+      email: '',
+      password: ''
+    })
+  }
 
   return (
-    <form>
+    <form onSubmit={onsubmit}>
       <div className="form-group">
         <label htmlFor="username">User Name</label>
         <input
@@ -17,6 +37,8 @@ export const Form = () => {
           className="form-control"
           name="username"
           placeholder="Enter Username"
+          value={username}
+          onChange={handleForm}
 
         />
       </div>
@@ -28,6 +50,8 @@ export const Form = () => {
           className="form-control"
           name="email"
           placeholder="Enter email"
+          value={email}
+          onChange={handleForm}
         />
       </div>
 
@@ -38,6 +62,8 @@ export const Form = () => {
           className="form-control"
           name="password"
           placeholder="Password"
+          value={password}
+          onChange={handleForm}
         />
       </div>
 
