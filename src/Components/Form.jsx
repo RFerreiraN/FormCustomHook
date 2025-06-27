@@ -1,31 +1,23 @@
 import { useState } from 'react'
+import { useForm } from '../Hooks/useForm';
 
 export const Form = () => {
 
-  const [form, setForm] = useState({
+  const formularioInputs = {
     username: '',
     email: '',
     password: ''
-  })
-
-  const { username, email, password } = form;
-
-  const handleForm = (event) => {
-    const { name, value } = event.target
-    setForm({
-      ...form,
-      [name]: value
-    })
   }
+  
+  const {resetForm, formState , handleForm} = useForm(formularioInputs)
+
+  const { username, email, password } = formState;
 
   const onsubmit = (event) => {
     event.preventDefault()
-    console.log(form)
-    setForm({
-      username: '',
-      email: '',
-      password: ''
-    })
+    console.log(formState)
+    resetForm()
+    
   }
 
   return (
